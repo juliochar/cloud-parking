@@ -26,6 +26,7 @@ class ParkingControllerTest extends AbstractContainerBase {
     @Test
     void WhenFindAllthenCheckResult() {
         RestAssured.given()
+                .header("authorization","Basic dXNlcjpkaW8=")
                 .when()
                 .get("/parking")
                 .then()
@@ -49,6 +50,24 @@ class ParkingControllerTest extends AbstractContainerBase {
 
 
         RestAssured.given()
+                .auth()
+                .basic("user", "dio")
+                .when()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(createDTO)
+                .post("/parking")
+                .then()
+                //statuscode
+                //.statusCode(HttpStatus.CREATED.value())
+                .statusCode(401);
+                //.body("license", Matchers.equalTo("WRT-5555"))
+                //.body("color", Matchers.equalTo("AMARELO"));
+
+
+
+
+        /*
+        RestAssured.given()
                 .when()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(createDTO)
@@ -57,5 +76,8 @@ class ParkingControllerTest extends AbstractContainerBase {
                 .statusCode(HttpStatus.CREATED.value())
                 .body("license", Matchers.equalTo("WRT-5555"))
                 .body("color", Matchers.equalTo("AMARELO"));
+
+
+         */
     }
 }

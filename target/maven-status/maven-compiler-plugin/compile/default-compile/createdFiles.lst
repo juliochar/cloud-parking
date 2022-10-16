@@ -1,4 +1,5 @@
 one/digitalinnovation/parking/config/SwaggerConfig.class
+one/digitalinnovation/parking/config/SecurityConfiguration.class
 one/digitalinnovation/parking/repository/ParkingRepository.class
 one/digitalinnovation/parking/service/ParkingService.class
 one/digitalinnovation/parking/service/ParkingCheckOut.class
