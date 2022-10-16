@@ -42,9 +42,19 @@ public class ParkingController {
     @ApiOperation("Buscar por ID")
     public ResponseEntity<ParkingDTO> findById(@PathVariable String id){
 
-        Parking parking = (Parking) parkingService.findById(id);
+        Parking parking = parkingService.findById(id);
+
         ParkingDTO result = parkingMapper.toparkingDTO(parking);
         return ResponseEntity.ok(result);
+
+    }
+
+    @DeleteMapping("/{id}")
+    @ApiOperation("Deletar por um ID especifico")
+    public ResponseEntity delete(@PathVariable String id){
+
+        parkingService.delete(id);
+        return ResponseEntity.noContent().build();
 
     }
 
@@ -56,6 +66,21 @@ public class ParkingController {
         var result = parkingMapper.toparkingDTO(parking);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
 
+    }
+
+    @PutMapping("{/id}")
+    @ApiOperation("Update - Atualizar um 'parking'")
+    public ResponseEntity<ParkingDTO> update(@PathVariable String id,@RequestBody ParkingCreateDTO dto){
+        var parkingUpdate = parkingMapper.toParkingCreate(dto);
+        Parking parking = parkingService.update(id, parkingUpdate);
+        return ResponseEntity.ok(parkingMapper.toparkingDTO(parking));
+    }
+
+    @PostMapping("{/id}")
+    @ApiOperation("Post - Saida do Estacionamento")
+    public ResponseEntity<ParkingDTO> exit(@PathVariable String id){
+        Parking parking = parkingService.exit(id);
+        return ResponseEntity.ok(parkingMapper.toparkingDTO(parking));
     }
 
 
